@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ヴァーディクトの天秤 — キャラクター記録帳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Shippori+Antique&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1b1d24;
+    --ink-2:#25272f;
+    --paper:#ffffff;
+    --paper-2:#ffffff;
+    --line:#c3b48c;
+    --gold:#b98a2e;
+    --gold-bright:#d9ac52;
+    --sou:#3d5a8a;   /* 創主・青 */
+    --kai:#8a3d3d;   /* 壊主・赤 */
+    --text:#2a241a;
+    --text-soft:#5c5342;
+    --text-light:#ece5d3;
+    --font-display:'Shippori Mincho', serif;
+    --font-title:'Shippori Antique', sans-serif;
+    --font-body:'Noto Sans JP', sans-serif;
+    --font-mono:'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    max-width:100%;
+    overflow-x:hidden;
+  }
+  body{
+    margin:0;
+    width:100%;
+    background:
+      /* 経年による斑点状のくすみ・シミ */
+      radial-gradient(ellipse 25% 20% at 20% 15%, rgba(15,35,70,.22), transparent 70%),
+      radial-gradient(ellipse 30% 25% at 80% 70%, rgba(10,25,55,.26), transparent 70%),
+      /* 布が寄って波打つ様子（床に落ちた布のように不規則な折り目） */
+      linear-gradient(94deg,
+        rgba(215,232,255,.26) 0%,
+        rgba(60,100,160,.05) 4%,
+        rgba(15,35,70,.24) 9%,
+        rgba(215,232,255,.14) 13%,
+        transparent 19%
+      ),
+      linear-gradient(112deg,
+        transparent 0%,
+        rgba(30,60,110,.18) 24%,
+        rgba(215,232,255,.16) 29%,
+        transparent 38%
+      ),
+      linear-gradient(87deg,
+        transparent 0%,
+        rgba(10,25,55,.20) 46%,
+        rgba(215,232,255,.12) 52%,
+        transparent 61%
+      ),
+      linear-gradient(104deg,
+        transparent 0%,
+        rgba(70,120,190,.17) 68%,
+        rgba(15,35,70,.22) 74%,
+        transparent 83%
+      ),
+      linear-gradient(90deg,
+        transparent 0%,
+        rgba(215,232,255,.15) 88%,
+        rgba(20,45,85,.18) 95%,
+        transparent 100%
+      ),
+      radial-gradient(ellipse 60% 40% at 35% 45%,
+        rgba(215,232,255,.12), transparent 70%
+      ),
+      radial-gradient(ellipse 50% 35% at 70% 65%,
+        rgba(10,25,55,.16), transparent 70%
+      ),
+      /* 全体のベース（中心が明るく縁が沈むサファイアブルー） */
+      radial-gradient(ellipse at center, #3d6ba8 0%, #23477a 45%, #101d38 100%);
+    background-attachment:fixed;
+    color:#2e2110;
+    font-family:var(--font-body);
+    min-height:100vh;
+    padding-bottom:80px;
+  }
+  /* 閲覧モード：背景をルビーのような赤に変更する */
+  body.mode-view{
+    background:
+      /* 経年による斑点状のくすみ・シミ */
+      radial-gradient(ellipse 25% 20% at 20% 15%, rgba(70,10,20,.22), transparent 70%),
+      radial-gradient(ellipse 30% 25% at 80% 70%, rgba(55,8,18,.26), transparent 70%),
+      /* 布が寄って波打つ様子（床に落ちた布のように不規則な折り目） */
+      linear-gradient(94deg,
+        rgba(255,215,222,.26) 0%,
+        rgba(160,30,45,.05) 4%,
+        rgba(70,10,20,.24) 9%,
+        rgba(255,215,222,.14) 13%,
+        transparent 19%
+      ),
+      linear-gradient(112deg,
+        transparent 0%,
+        rgba(110,15,30,.18) 24%,
+        rgba(255,215,222,.16) 29%,
+        transparent 38%
+      ),
+      linear-gradient(87deg,
+        transparent 0%,
+        rgba(55,8,18,.20) 46%,
+        rgba(255,215,222,.12) 52%,
+        transparent 61%
+      ),
+      linear-gradient(104deg,
+        transparent 0%,
+        rgba(190,35,55,.17) 68%,
+        rgba(70,10,20,.22) 74%,
+        transparent 83%
+      ),
+      linear-gradient(90deg,
+        transparent 0%,
+        rgba(255,215,222,.15) 88%,
+        rgba(85,15,30,.18) 95%,
+        transparent 100%
+      ),
+      radial-gradient(ellipse 60% 40% at 35% 45%,
+        rgba(255,215,222,.12), transparent 70%
+      ),
+      radial-gradient(ellipse 50% 35% at 70% 65%,
+        rgba(55,8,18,.16), transparent 70%
+      ),
+      /* 全体のベース（中心が明るく縁が沈むルビーレッド） */
+      radial-gradient(ellipse at center, #a8233d 0%, #7a1a2e 45%, #380d17 100%);
+    background-attachment:fixed;
+  }
+  header{
+    text-align:center;
+    padding:56px 20px 40px;
+    position:relative;
+    overflow:hidden;
+  }
+  header::before{
+    content:"";
+    position:absolute;
+    top:-40%;left:50%;
+    width:min(900px,220vw);height:min(900px,220vw);
+    transform:translateX(-50%);
+    background:radial-gradient(circle, rgba(185,138,46,0.10) 0%, transparent 65%);
+    pointer-events:none;
+  }
+  .eyebrow{
+    letter-spacing:.35em;
+    font-size:11px;
+    font-family:var(--font-mono);
+    margin-bottom:14px;
+    font-weight:700;
+    background-image:linear-gradient(185deg,
+      #8a6a2e 0%,
+      #c2953f 20%,
+      #d9ac52 38%,
+      #e8c468 55%,
+      #f5d885 70%,
+      #ffe066 85%,
+      #fff2b0 100%
+    );
+    background-clip:text;
+    -webkit-background-clip:text;
+    color:transparent;
+    -webkit-text-fill-color:transparent;
+    text-shadow:0 -1px 1px rgba(0,0,0,.4), 0 1px 3px rgba(255,224,102,.35);
+  }
+  h1{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:clamp(28px,5vw,44px);
+    margin:0 0 8px;
+    letter-spacing:.06em;
+    background-image:linear-gradient(185deg,
+      #8a6a2e 0%,
+      #a07830 14%,
+      #c2953f 28%,
+      #d9ac52 40%,
+      #e8c468 52%,
+      #f5d885 64%,
+      #ffe066 76%,
+      #fff2b0 90%,
+      #ffe066 100%
+    );
+    background-clip:text;
+    -webkit-background-clip:text;
+    color:transparent;
+    -webkit-text-fill-color:transparent;
+    text-shadow:0 -1px 1px rgba(0,0,0,.5), 0 2px 5px rgba(255,224,102,.4);
+  }
+  header p.sub{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:#4a3618;
+    margin:0;
+    letter-spacing:.08em;
+  }
+
+  /* シート本体（帳簿風） */
+  .sheet-wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding:0 18px;
+    position:relative;
+  }
+  .sheet{
+    background:var(--paper);
+    color:var(--text);
+    border-radius:4px;
+    box-shadow:0 30px 60px rgba(0,0,0,.45), 0 0 0 1px rgba(0,0,0,.2);
+    position:relative;
+  }
+  .sheet-band{
+    background:var(--ink);
+    color:var(--text-light);
+    padding:16px 26px;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    border-radius:4px 4px 0 0;
+  }
+  .sheet-band .label{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.2em;
+    color:var(--gold-bright);
+  }
+  .sheet-band .mode{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:#8f8878;
+  }
+
+  .section{
+    padding:22px 28px;
+    border-bottom:1px dashed var(--line);
+  }
+  .section:last-child{border-bottom:none;}
+  .sub-divider{
+    border:none;
+    border-top:1px dashed var(--line);
+    margin:20px 0 0;
+  }
+  .section-title{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:15px;
+    margin:0 0 16px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:var(--text);
+  }
+  .section-title::before{
+    content:"";
+    width:6px;height:6px;
+    background:var(--gold);
+    display:inline-block;
+    transform:rotate(45deg);
+  }
+
+  .grid{display:grid;gap:14px;}
+  .grid.cols-3{grid-template-columns:repeat(3,1fr);}
+  .grid.cols-2{grid-template-columns:repeat(2,1fr);}
+  @media(max-width:520px){
+    .grid.cols-3{grid-template-columns:1fr 1fr;}
+    .grid.cols-2{grid-template-columns:1fr;}
+  }
+  /* HPの初期値・現在値は数値のみなので、狭い幅で横並びのまま固定する */
+  #hpGrid{
+    grid-template-columns:96px 96px;
+    justify-content:start;
+  }
+  #hpGrid input{text-align:left;}
+  @media(max-width:520px){
+    #hpGrid{grid-template-columns:88px 88px;}
+  }
+  /* 天命判定の初期値・現在値も同様に狭い幅で横並びにする */
+  #tenmeiGrid{
+    grid-template-columns:96px 96px;
+    justify-content:start;
+  }
+  #tenmeiGrid input{text-align:left;}
+  @media(max-width:520px){
+    #tenmeiGrid{grid-template-columns:88px 88px;}
+  }
+
+  label.field{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--text-soft);}
+  .profile-top{
+    display:grid;
+    grid-template-columns:1fr 120px;
+    gap:14px;
+    align-items:stretch;
+  }
+  .profile-fields{display:flex;flex-direction:column;gap:14px;justify-content:center;min-width:0;}
+  .portrait-frame{
+    border:1px dashed var(--line);
+    border-radius:4px;
+    aspect-ratio:3/4;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    background:var(--paper-2);
+    overflow:hidden;
+    position:relative;
+  }
+  .portrait-frame img{width:100%;height:100%;object-fit:cover;}
+  .portrait-col{display:flex;flex-direction:column;gap:6px;}
+  .portrait-actions{display:flex;gap:6px;}
+  .portrait-dots{display:none;gap:6px;justify-content:center;padding:2px 0;}
+  .portrait-dots.show{display:flex;}
+  .portrait-dot{
+    width:8px;height:8px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    background:transparent;
+    cursor:pointer;
+    flex-shrink:0;
+  }
+  .portrait-dot.filled{background:rgba(185,138,46,.35);border-color:var(--gold);}
+  .portrait-dot.active{background:var(--gold);border-color:var(--gold);}
+  .portrait-mini-btn{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.05em;
+    padding:5px 4px;
+    background:rgba(255,246,224,.25);
+    border:1px solid var(--line);
+    border-radius:3px;
+    color:var(--text-soft);
+    cursor:pointer;
+  }
+  .portrait-mini-btn:hover{background:rgba(255,246,224,.4);}
+  fieldset[disabled] .portrait-actions{display:none !important;}
+
+  /* 立ち絵トリミング（拡大・位置調整）モーダル */
+  .crop-modal-box{max-width:340px;}
+  .crop-stage{
+    position:relative;
+    width:100%;
+    aspect-ratio:3/4;
+    overflow:hidden;
+    border:1px solid var(--line);
+    border-radius:4px;
+    background:#1b1d24;
+    touch-action:none;
+    margin-bottom:14px;
+    cursor:grab;
+  }
+  .crop-stage:active{cursor:grabbing;}
+  .crop-stage img{
+    position:absolute;
+    top:0;left:0;
+    max-width:none;
+    user-select:none;
+    -webkit-user-drag:none;
+    pointer-events:none;
+  }
+  .crop-zoom-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+  .crop-zoom-row input[type=range]{flex:1;}
+  .crop-zoom-label{font-size:11px;color:var(--text-soft);white-space:nowrap;font-family:var(--font-mono);}
+  #portraitPlaceholder{
+    font-size:10px;line-height:1.6;
+    color:var(--text-soft);text-align:center;padding:6px;
+    font-family:var(--font-mono);
+  }
+  fieldset[disabled] .portrait-frame{cursor:default;}
+  @media(max-width:480px){
+    .profile-top{grid-template-columns:1fr 90px;}
+  }
+  label.field span{font-family:var(--font-mono);letter-spacing:.05em;}
+  input,textarea,select{
+    font-family:var(--font-body);
+    background:var(--paper-2);
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:9px 10px;
+    font-size:14px;
+    color:var(--text);
+    width:100%;
+  }
+  input:focus,textarea:focus,select:focus{
+    outline:2px solid var(--gold);
+    outline-offset:1px;
+  }
+  ::placeholder{
+    color:#a89a80;
+    opacity:1;
+  }
+  /* HP・天命判定の現在値は変更不可のため、グレーアウトして分かりやすくする */
+  input[readonly]{
+    background:#e2ddd0;
+    color:var(--text-soft);
+    cursor:not-allowed;
+  }
+  input[readonly]:focus{outline:none;}
+  /* ただし固定の初期値欄は、枠・塗りつぶしをなくして表示のみにする */
+  #f_hp_init,
+  #f_tenmei_init{
+    background:transparent;
+    border:none;
+    padding:9px 2px;
+  }
+  textarea{resize:vertical;min-height:100px;line-height:1.6;}
+  body.mode-view textarea{overflow:hidden;resize:none;}
+  /* 閲覧モード：ブラウザ標準の無効化表示で縁が薄くなるのを防ぎ、はっきり縁取る */
+  fieldset[disabled] input,
+  fieldset[disabled] textarea,
+  fieldset[disabled] select{
+    border:1px solid var(--line);
+    opacity:1;
+    color:var(--text);
+    -webkit-text-fill-color:var(--text);
+  }
+
+  /* アプローチ表 */
+  .approach-row{
+    display:grid;
+    grid-template-columns:1fr auto;
+    align-items:center;
+    padding:10px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .approach-row:last-child{border-bottom:none;}
+  .approach-name{
+    font-family:var(--font-display);
+    font-size:15px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .approach-name small{
+    font-family:var(--font-body);
+    font-size:11px;
+    color:var(--text-soft);
+    font-weight:400;
+  }
+  .approach-name .view-suffix{display:none;}
+  body.mode-view .approach-name small:not(.view-suffix){display:none;}
+  body.mode-view .approach-name .view-suffix{display:inline;}
+  .approach-value{
+    font-family:var(--font-mono);
+    font-size:22px;
+    font-weight:700;
+    color:var(--kai);
+    min-width:56px;
+    text-align:right;
+  }
+  .approach-value.is-identity{color:var(--sou);}
+  .identity-picker{
+    margin-top:14px;
+  }
+  .identity-picker-label{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-soft);
+    letter-spacing:.03em;
+    margin:8px 0 0;
+  }
+  .identity-picker-buttons{
+    display:flex;gap:8px;flex-wrap:wrap;
+  }
+  .identity-picker button{
+    font-family:var(--font-body);
+    font-size:12px;
+    padding:6px 14px;
+    border-radius:20px;
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--text-soft);
+    cursor:pointer;
+  }
+  .identity-picker button.active{
+    background:var(--sou);
+    border-color:var(--sou);
+    color:#fff;
+  }
+
+  /* HP・星 */
+  .stars,.track{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;}
+  .star,.box{
+    width:26px;height:26px;
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;font-family:var(--font-mono);
+    cursor:pointer;background:var(--paper-2);color:var(--text-soft);
+    border-radius:2px;
+    user-select:none;
+  }
+  .star.filled{background:var(--gold);border-color:var(--gold);color:#fff;}
+  .box.filled{background:var(--sou);border-color:var(--sou);color:#fff;}
+  .box.bad.filled{background:var(--kai);border-color:var(--kai);}
+
+  .hint{font-size:11px;color:var(--text-soft);margin-top:8px;line-height:1.6;}
+  .popular-items-label{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-soft);
+    letter-spacing:.05em;
+    margin:14px 0 8px;
+  }
+
+  /* 天命とは トグル */
+  .rule-toggle{
+    margin-top:10px;
+  }
+  .rule-toggle summary{
+    list-style:none;
+    cursor:pointer;
+    padding:9px 14px 9px 0;
+    font-size:12px;
+    font-weight:700;
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .rule-toggle summary::-webkit-details-marker{display:none;}
+  .rule-toggle summary::before{
+    content:"▸";
+    display:inline-block;
+    font-size:10px;
+    transition:transform .15s;
+  }
+  .rule-toggle[open] summary::before{transform:rotate(90deg);}
+  .rule-toggle-body{
+    padding:2px 16px 14px;
+    font-size:12px;
+    color:var(--text-soft);
+    line-height:1.7;
+  }
+  .rule-toggle-body p{margin:0 0 8px;}
+  .rule-toggle-body ul{margin:0;padding-left:1.2em;}
+  .rule-toggle-body li{margin-bottom:4px;}
+  .rule-toggle-highlight{
+    margin-top:12px;
+    border:1px solid var(--gold);
+    border-radius:4px;
+    background:rgba(185,138,46,.10);
+    overflow:hidden;
+  }
+  .rule-toggle-highlight-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:8px 12px;
+    font-size:12px;
+  }
+  .rule-toggle-highlight-row + .rule-toggle-highlight-row{
+    border-top:1px solid rgba(185,138,46,.35);
+  }
+  .rule-toggle-highlight-row strong{
+    font-family:var(--font-display);
+    font-size:16px;
+    color:var(--gold);
+    letter-spacing:.02em;
+  }
+  body.mode-view .rule-toggle{display:none;}
+
+  /* セクション自体を開閉できるトグル（◆見出し付き） */
+  .section-toggle{border-bottom:1px dashed var(--line);}
+  .section-toggle:last-child{border-bottom:none;}
+  .section-toggle > summary{
+    list-style:none;
+    cursor:pointer;
+    padding:22px 28px;
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:15px;
+    color:var(--text);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .section-toggle > summary::-webkit-details-marker{display:none;}
+  .section-toggle > summary::before{
+    content:"";
+    width:6px;height:6px;
+    background:var(--gold);
+    display:inline-block;
+    transform:rotate(45deg);
+    flex-shrink:0;
+  }
+  .section-toggle > summary::after{
+    content:"▸";
+    margin-left:auto;
+    font-size:12px;
+    color:var(--text-soft);
+    transition:transform .15s;
+  }
+  .section-toggle[open] > summary::after{transform:rotate(90deg);}
+  .section-toggle-body{
+    padding:0 28px 22px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+
+  /* 天命完遂後の選択 */
+  .radio-line{display:flex;gap:18px;flex-wrap:wrap;margin-top:8px;}
+  .radio-line label{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-soft);cursor:pointer;}
+
+  /* 印璽（署名要素） */
+  .seal{
+    position:absolute;
+    top:-26px;right:-18px;
+    width:96px;height:96px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    opacity:0;
+    transform:scale(1.6) rotate(-25deg);
+    transition:opacity .5s ease, transform .5s cubic-bezier(.2,1.4,.4,1);
+    pointer-events:none;
+  }
+  .seal.show{opacity:1;transform:scale(1) rotate(-8deg);}
+  .seal svg{width:100%;height:100%;}
+
+  /* ボタン群 */
+  .toolbar{
+    max-width:760px;margin:26px auto 0;padding:0 18px;
+    display:flex;gap:10px;flex-wrap:wrap;justify-content:center;
+  }
+  .btn{
+    font-family:var(--font-body);
+    font-size:13px;
+    padding:11px 22px;
+    border-radius:2px;
+    border:1px solid var(--line);
+    cursor:pointer;
+    background:rgba(255,246,224,.30);
+    color:#2e2110;
+    border-color:#6b4a1f;
+    transition:background .2s;
+  }
+  .btn:hover{background:rgba(255,246,224,.55);}
+  .btn.primary{
+    background:var(--gold);
+    border-color:var(--gold);
+    color:#1b1d24;
+    font-weight:700;
+  }
+  .btn.primary:hover{background:var(--gold-bright);}
+  .btn:focus-visible{outline:2px solid #2e2110;outline-offset:2px;}
+
+  .share-out{
+    max-width:760px;margin:14px auto 0;padding:0 18px;
+    display:none;
+  }
+  .share-out.show{display:block;}
+  .share-out .box-link{
+    background:var(--ink-2);
+    border:1px solid #45412f;
+    border-radius:4px;
+    padding:14px 16px;
+    font-family:var(--font-mono);
+    font-size:12px;
+    word-break:break-all;
+    color:#cbbfa0;
+  }
+  .share-out .row{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;}
+
+  /* クリア確認モーダル */
+  .modal-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(10,15,25,.55);
+    z-index:100;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  }
+  .modal-overlay.show{display:flex;}
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:6px;
+    max-width:420px;
+    width:100%;
+    padding:24px 22px;
+    box-shadow:0 12px 30px rgba(0,0,0,.35);
+  }
+  .modal-title{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:17px;
+    color:var(--text);
+    margin:0 0 12px;
+  }
+  .modal-body{
+    font-size:13px;
+    color:var(--text-soft);
+    line-height:1.8;
+    margin:0 0 20px;
+  }
+  .modal-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;}
+
+  .view-banner{
+    max-width:760px;margin:0 auto 14px;padding:0 18px;
+    text-align:center;
+  }
+  .view-banner span{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.15em;
+    color:#2e2110;
+    border:1px solid #6b4a1f;
+    background:rgba(255,246,224,.35);
+    border-radius:20px;
+    padding:6px 16px;
+    display:inline-block;
+    font-weight:700;
+  }
+  fieldset{border:none;padding:0;margin:0;}
+  fieldset[disabled] .identity-picker button,
+  fieldset[disabled] .star,
+  fieldset[disabled] .box{cursor:default;}
+
+  footer{
+    text-align:center;
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:#d9ac52;
+    margin-top:50px;
+    padding:0 18px;
+  }
+  .footer-list li{
+    margin-bottom:14px;
+    padding-bottom:14px;
+    border-bottom:1px dashed rgba(217,172,82,.25);
+  }
+  .footer-list li:last-child{
+    margin-bottom:0;
+    padding-bottom:0;
+    border-bottom:none;
+  }
+  .footer-list strong{
+    display:inline-block;
+    color:#f0c878;
+    font-weight:700;
+    letter-spacing:.05em;
+    margin-bottom:4px;
+  }
+  .footer-list span{
+    display:inline-block;
+    color:#a98a55;
+    line-height:1.7;
+  }
+  @media print{
+    body{
+      background:
+        radial-gradient(ellipse 25% 20% at 20% 15%, rgba(70,10,20,.22), transparent 70%),
+        radial-gradient(ellipse 30% 25% at 80% 70%, rgba(55,8,18,.26), transparent 70%),
+        linear-gradient(94deg,
+          rgba(255,215,222,.26) 0%,
+          rgba(160,30,45,.05) 4%,
+          rgba(70,10,20,.24) 9%,
+          rgba(255,215,222,.14) 13%,
+          transparent 19%
+        ),
+        linear-gradient(112deg,
+          transparent 0%,
+          rgba(110,15,30,.18) 24%,
+          rgba(255,215,222,.16) 29%,
+          transparent 38%
+        ),
+        linear-gradient(87deg,
+          transparent 0%,
+          rgba(55,8,18,.20) 46%,
+          rgba(255,215,222,.12) 52%,
+          transparent 61%
+        ),
+        linear-gradient(104deg,
+          transparent 0%,
+          rgba(190,35,55,.17) 68%,
+          rgba(70,10,20,.22) 74%,
+          transparent 83%
+        ),
+        linear-gradient(90deg,
+          transparent 0%,
+          rgba(255,215,222,.15) 88%,
+          rgba(85,15,30,.18) 95%,
+          transparent 100%
+        ),
+        radial-gradient(ellipse 60% 40% at 35% 45%,
+          rgba(255,215,222,.12), transparent 70%
+        ),
+        radial-gradient(ellipse 50% 35% at 70% 65%,
+          rgba(55,8,18,.16), transparent 70%
+        ),
+        radial-gradient(ellipse at center, #a8233d 0%, #7a1a2e 45%, #380d17 100%);
+      padding:0;
+    }
+    .toolbar,.share-out,footer,.rule-toggle{display:none;}
+    .sheet{box-shadow:none;color:#000;}
+    .section-toggle:not([open]) > .section-toggle-body{display:flex !important;}
+    .section-toggle > summary::after{display:none;}
+    .print-footer-band{
+      display:block;
+      height:3cm;
+      background:
+        radial-gradient(ellipse 25% 40% at 30% 50%, rgba(255,215,222,.18), transparent 70%),
+        radial-gradient(ellipse 25% 40% at 75% 50%, rgba(55,8,18,.22), transparent 70%),
+        linear-gradient(94deg,
+          rgba(255,215,222,.20) 0%,
+          rgba(70,10,20,.20) 20%,
+          rgba(255,215,222,.10) 45%,
+          rgba(70,10,20,.20) 70%,
+          rgba(255,215,222,.15) 100%
+        ),
+        radial-gradient(ellipse at center, #a8233d 0%, #7a1a2e 45%, #380d17 100%);
+    }
+  }
+  .print-footer-band{display:none;}
+  /* 閲覧モードを印刷用表示と同じ見た目にする */
+  body.mode-view footer{display:none;}
+  body.mode-view .section-toggle{border-bottom:none;}
+  body.mode-view .popular-items-label{display:none;}
+  body.mode-view .section-toggle:not([open]) > .section-toggle-body{display:flex !important;}
+  body.mode-view .section-toggle > summary{
+    cursor:default;
+    pointer-events:none;
+  }
+  body.mode-view .section-toggle > summary::after{display:none;}
+  /* 閲覧モード：HPは現在値のみ表示 */
+  /* 閲覧モード：アイデンティティ設定ボタンを非表示 */
+  body.mode-view #identityPicker{display:none;}
+  /* 閲覧モード：天命判定達成値も現在値のみ表示 */
+  body.mode-view #tenmeiTrack{display:none;}
+  body.mode-view #tenmeiHint{display:none;}
+  /* 閲覧モード：HP上限ボーナスの星マークを非表示 */
+  body.mode-view #hpStars{display:none;}
+  body.mode-view #hpBonusHint{display:none;}
+  /* 閲覧モード：天命完遂後の選択は選ばれている項目のみ表示 */
+  body.mode-view #afterChoice label{display:none;}
+  body.mode-view #afterChoice label:has(input:checked){display:inline-flex;}
+  /* 閲覧モード：プロフィール・HP・世界観の入力欄は枠なし・下線のみにする */
+  body.mode-view #profileSection input,
+  body.mode-view #profileSection textarea,
+  body.mode-view #hpSection input,
+  body.mode-view #tenmeiGrid input,
+  body.mode-view #worldSection select,
+  body.mode-view #jinguSection input,
+  body.mode-view #passedScenarioSection input{
+    border:none;
+    border-bottom:1px solid var(--gold);
+    border-radius:0;
+    background:transparent;
+    padding:4px 2px;
+    -webkit-appearance:none;
+    appearance:none;
+  }
+  /* 閲覧モード：世界・出自が未選択の場合、「選択してください」の文字を非表示にする */
+  body.mode-view #worldSection select:invalid{color:transparent !important;}
+  body.mode-view #worldHint{display:none;}
+  /* 閲覧モード：世界・出自セクションをプロフィールの次に表示する（編集モードの並び順は変更しない） */
+  body.mode-view #formRoot{display:flex;flex-direction:column;}
+  body.mode-view #profileSection{order:1;}
+  body.mode-view #worldSection{order:2;}
+  body.mode-view #tenmeiSection{order:3;}
+  body.mode-view #hpSection{order:4;}
+  body.mode-view #jinguSection{order:5;}
+  body.mode-view #approachSection{order:6;}
+  body.mode-view #tenmeiJudgeSection{order:7;}
+  body.mode-view #tenmeiLossSection{order:8;}
+  body.mode-view #tenmeiCompleteSection{order:9;}
+  body.mode-view #passedScenarioSection{order:10;}
+  /* 閲覧モード：天命・プロフィールの例文（プレースホルダー）を非表示にする */
+  body.mode-view #f_tenmei::placeholder,
+  body.mode-view #f_epilogue::placeholder,
+  body.mode-view #f_epilogue_rakuen::placeholder,
+  body.mode-view #profileSection input::placeholder,
+  body.mode-view #profileSection textarea::placeholder{
+    color:transparent !important;
+    -webkit-text-fill-color:transparent !important;
+    opacity:1 !important;
+  }
+  /* 閲覧モード：立ち絵未設定時の案内文（タップしてアップロード）を非表示にする */
+  body.mode-view #portraitPlaceholder{visibility:hidden;}
+
+  /* 通常時：カナのサフィックス（氏名の後ろの（）書き）は非表示 */
+  .name-row{display:flex;align-items:center;gap:6px;min-width:0;flex-wrap:wrap;}
+  .name-row input{width:auto;flex:1;min-width:0;}
+  .name-display{
+    display:none;
+    white-space:normal;
+    word-break:break-word;
+    font-family:var(--font-body);
+    font-size:14px;
+    color:var(--text);
+    padding:4px 2px;
+    border-bottom:1px solid var(--gold);
+    width:100%;
+  }
+  body.mode-view .name-row #f_name{display:none;}
+  body.mode-view .name-row .name-kana-suffix{display:none;}
+  body.mode-view .name-display{display:block;}
+  .name-kana-suffix{display:none;font-size:12px;color:var(--text-soft);white-space:nowrap;}
+
+  /* 閲覧モード：カナ欄は非表示にし、氏名の後ろに（）書きで表示する */
+  body.mode-view #kanaField{display:none;}
+  body.mode-view .name-kana-suffix{display:inline;}
+
+  /* 閲覧モード：「任意｜」の文言を非表示にする */
+  body.mode-view .optional-tag{display:none;}
+
+  /* 閲覧モード：天命の内容欄は自由記述と同じく下線のみにする */
+  body.mode-view #f_tenmei{
+    border:none;
+    border-bottom:1px solid var(--gold);
+    border-radius:0;
+    background:transparent;
+    padding:4px 2px;
+  }
+
+  /* 閲覧モード：巡具・通過シナリオが全て空欄の場合はセクションごと非表示にする */
+  body.mode-view #jinguSection.all-empty,
+  body.mode-view #passedScenarioSection.all-empty{
+    display:none;
+  }
+  /* 閲覧モード：巡具・通過シナリオの空欄行は行ごと詰めて非表示にする */
+  body.mode-view #jinguSection label.field:has(input.is-empty),
+  body.mode-view #passedScenarioSection label.field:has(input.is-empty){
+    display:none;
+  }
+  /* 閲覧モード：身長・体重・出身地・自由記述も空欄なら行ごと詰めて非表示にする */
+  body.mode-view label.field:has(#f_height.is-empty),
+  body.mode-view label.field:has(#f_weight.is-empty),
+  body.mode-view label.field:has(#f_birthplace.is-empty),
+  body.mode-view label.field:has(#f_opt2.is-empty){
+    display:none;
+  }
+
+  /* 閲覧モード：天命の喪失・完遂のヒント文言を非表示にする */
+  body.mode-view #badTrackHint,
+  body.mode-view #kanjuHint{display:none;}
+  body.mode-view #jinguHint{display:none;}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">VERDICT OF THE BALANCE</div>
+  <h1>ヴァーディクトの天秤</h1>
+</header>
+
+<div class="sheet-wrap">
+  <div class="sheet" id="sheet">
+    <div class="seal" id="seal">
+      <svg viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="46" fill="none" stroke="#b98a2e" stroke-width="3"/>
+        <path d="M50 4 A46 46 0 0 1 50 96 Z" fill="#3d5a8a" opacity="0.85"/>
+        <path d="M50 4 A46 46 0 0 0 50 96 Z" fill="#8a3d3d" opacity="0.85"/>
+        <circle cx="50" cy="50" r="14" fill="#1b1d24"/>
+        <text x="50" y="55" text-anchor="middle" font-size="13" fill="#d9ac52" font-family="serif">裁</text>
+      </svg>
+    </div>
+
+    <div class="sheet-band">
+      <span class="label">◆ キャラクターシート ◆</span>
+    </div>
+
+    <fieldset id="formRoot">
+    <details class="section-toggle" id="worldSection">
+      <summary>舞台</summary>
+      <div class="section-toggle-body">
+      <div class="grid cols-2">
+        <label class="field"><span>世界</span>
+          <select id="f_world" required>
+            <option value="" selected>選択してください</option>
+            <option value="真誠日本">真誠日本</option>
+            <option value="桜華日本帝国">桜華日本帝国</option>
+            <option value="ネオジャパン">ネオジャパン</option>
+          </select>
+        </label>
+        <label class="field"><span>出自</span>
+          <select id="f_race" required>
+            <option value="" selected>選択してください</option>
+            <option value="人間">人間</option>
+            <option value="眷族の末裔">眷族の末裔</option>
+          </select>
+        </label>
+      </div>
+      <div class="hint" id="worldHint">*シナリオの指定に準じる</div>
+      <details class="rule-toggle">
+        <summary>この世界について</summary>
+        <div class="rule-toggle-body">
+          <p>世界にはそれぞれ、創造の力を司る創主（そうしゅ）と破壊の力を司る壊主（かいしゅ）がいる。</p>
+          <p>各世界はそれぞれの2柱によって創られた。</p>
+          <p>両者はそれぞれ眷族（けんぞく）と呼ばれる従属する存在を生み出しており、人間に身を落とされた眷族の血を引く末裔（まつえい）が存在する。</p>
+          <p>この2柱を軸とした宗教が「巡天教」（じゅんてんきょう）である。天命を果たした魂は、望むものすべてがあるとされる「楽園（らくえん）」に帰るとされている。</p>
+          <p><strong>真誠日本（しんせいにっぽん）</strong>：科学の発展とオカルトが入り交じる現代風の世界。</p>
+          <p><strong>桜華日本帝国（おうかにっぽんていこく）</strong>：植物に不思議な力が宿り、眷族と共に歩む大正時代風の世界。</p>
+          <p><strong>ネオジャパン</strong>：格差と管理体制のもとにあるディストピアやサイバーパンクな未来風な世界。</p>
+        </div>
+      </details>
+      </div>
+    </details>
+
+    <details class="section-toggle" id="profileSection">
+      <summary>プロフィール</summary>
+      <div class="section-toggle-body">
+      <div class="profile-top">
+        <div class="profile-fields">
+          <label class="field"><span>氏名</span><span class="name-row"><input id="f_name" type="text" placeholder="例：山田 太郎"><span id="nameKanaSuffix" class="name-kana-suffix"></span><span id="nameDisplay" class="name-display"></span></span></label>
+          <label class="field" id="kanaField"><span>カナ</span><input id="f_kana" type="text" placeholder="例：ヤマダ タロウ"></label>
+          <label class="field"><span>年齢</span><input id="f_age" type="text" placeholder="例：25歳"></label>
+        </div>
+        <div class="portrait-col">
+          <div class="portrait-frame" id="portraitFrame">
+            <input type="file" id="f_portrait_file" accept="image/*" style="display:none;">
+            <img id="portraitImg" style="display:none;" alt="立ち絵">
+            <span id="portraitPlaceholder">立ち絵<br>（タップして<br>アップロード）</span>
+          </div>
+          <div class="portrait-dots" id="portraitDots">
+            <span class="portrait-dot" data-index="0"></span>
+            <span class="portrait-dot" data-index="1"></span>
+            <span class="portrait-dot" data-index="2"></span>
+          </div>
+          <div class="portrait-actions" id="portraitActions" style="display:none;">
+            <button type="button" class="portrait-mini-btn" id="btnPortraitAdjust">調整</button>
+            <button type="button" class="portrait-mini-btn" id="btnPortraitClear">クリア</button>
+          </div>
+        </div>
+      </div>
+      <label class="field" style="margin-top:14px;"><span>職業</span><input id="f_job" type="text" placeholder="例：会社員"></label>
+      <p class="popular-items-label">以下は任意項目</p>
+      <div class="grid cols-2">
+        <label class="field"><span>身長</span><input id="f_height" type="text" placeholder="例：168cm"></label>
+        <label class="field"><span>体重</span><input id="f_weight" type="text" placeholder="例：62kg"></label>
+      </div>
+      <label class="field" style="margin-top:14px;"><span>出身地</span><input id="f_birthplace" type="text" placeholder="例：埼玉県"></label>
+      <label class="field" style="margin-top:14px;"><span>自由記述</span><textarea id="f_opt2" placeholder="例：聞き上手で、人から相談を持ちかけられやすい。休日は友人同士を誘って集まることが多い。" style="min-height:80px;"></textarea></label>
+      </div>
+    </details>
+
+    <details class="section-toggle" id="tenmeiSection">
+      <summary>天命</summary>
+      <div class="section-toggle-body">
+      <label class="field" id="tenmeiField"><textarea id="f_tenmei" placeholder="例：【交流】まだ自覚はなく、会社内ではグループワークを得意とする。"></textarea></label>
+      <details class="rule-toggle">
+        <summary>天命とは</summary>
+        <div class="rule-toggle-body">
+          <p>すべての生き物の魂に宿る、創主が授けた成すべき使命のこと。</p>
+          <p>天命は自覚していなくてはいけないものではない。</p>
+          <p>以下の5つのジャンルは一例であり、自由に設定してよい。</p>
+          <ul>
+            <li>創造：何かを生み出し、他者に届けることが使命（例：芸術家・料理人・発明家）</li>
+            <li>探求：知識・真実・答えを追い求めることが使命（例：学者・探偵・旅人）</li>
+            <li>守護：他者・場所・何かを守ることが使命（例：医者・警察官・弁護士）</li>
+            <li>変革：現状を変え、新しい秩序・道を切り開くことが使命（例：政治家・活動家）</li>
+            <li>交流：人と人、心と心を繋ぐことが使命（例：営業・外交官・カウンセラー）</li>
+          </ul>
+        </div>
+      </details>
+      </div>
+    </details>
+
+    <details class="section-toggle" id="hpSection">
+      <summary>HP</summary>
+      <div class="section-toggle-body">
+      <div class="grid cols-2" id="hpGrid">
+        <label class="field hp-init-field"><span>初期値</span><input id="f_hp_init" type="number" value="10" readonly></label>
+        <label class="field"><span id="hpNowLabel">現在値</span><input id="f_hp_now" type="number" value="10" readonly></label>
+      </div>
+      <div class="stars" id="hpStars"></div>
+      <div class="hint" id="hpBonusHint">*乗命するたびに枠を左から埋める</div>
+      <details class="rule-toggle">
+        <summary>乗命とは</summary>
+        <div class="rule-toggle-body">
+          <p>各シナリオには物語の終盤に結末を決める選択を行う天秤が現れる裁定（さいてい）というフェーズが訪れる。</p>
+          <p>乗命（じょうめい）とは、その出現した天秤の皿に自身の天命を乗せる行為のこと。</p>
+          <p>※乗命すると、結末（ハッピーエンド・バッドエンド）に関わらず次セッションのHP上限が+1される（最大+5まで、枠は左詰めで記録する）。ただし乗命先がバッドエンドとなった場合はその回数が記録され、3回でその天命は失われる。なお、参加者全員が乗命しなかった場合、その回はバッドエンド扱いとなる。</p>
+        </div>
+      </details>
+      </div>
+    </details>
+
+    <details class="section-toggle" id="jinguSection">
+      <summary>巡具</summary>
+      <div class="section-toggle-body">
+        <label class="field"><input id="f_jingu1" type="text"></label>
+        <label class="field"><input id="f_jingu2" type="text"></label>
+        <label class="field"><input id="f_jingu3" type="text"></label>
+        <div class="hint" id="jinguHint">*シナリオ内で入手した場合にのみ記載可</div>
+        <details class="rule-toggle">
+          <summary>巡具とは</summary>
+          <div class="rule-toggle-body">
+            <p>創主・壊主やその眷族が人間に与える遺物を巡具（じゅんぐ）と呼ぶ。</p>
+            <p>世に伝わる怪奇現象の多くは、この巡具によるものである。</p>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="section-toggle" id="approachSection">
+      <summary>アプローチ判定</summary>
+      <div class="section-toggle-body">
+      <div class="approach-row">
+        <span class="approach-name">行動 <small>体を主に使う判定</small><small class="view-suffix">の達成値</small></span>
+        <span class="approach-value" id="val_kodo">7</span>
+      </div>
+      <div class="approach-row">
+        <span class="approach-name">洞察 <small>五感で情報を読み取る判定</small><small class="view-suffix">の達成値</small></span>
+        <span class="approach-value" id="val_dousatsu">7</span>
+      </div>
+      <div class="approach-row">
+        <span class="approach-name">感情 <small>NPCまたは自分自身への判定</small><small class="view-suffix">の達成値</small></span>
+        <span class="approach-value" id="val_kanjou">7</span>
+      </div>
+      <div class="identity-picker" id="identityPicker">
+        <div class="identity-picker-buttons">
+          <button data-id="kodo" type="button">行動</button>
+          <button data-id="dousatsu" type="button">洞察</button>
+          <button data-id="kanjou" type="button">感情</button>
+          <button data-id="none" type="button">クリア</button>
+        </div>
+        <p class="identity-picker-label">*アイデンティティ（自分らしさ）を設定</p>
+      </div>
+      <details class="rule-toggle">
+        <summary>アプローチ判定とは</summary>
+        <div class="rule-toggle-body">
+          <p>キャラクターの行動から情報や結果を得ようとする際に行う判定のこと。</p>
+          <p>行為そのものはロールプレイとして判定なしで自由に行えるが、そこから何かを得ようとする時点でこの判定が必要になる。</p>
+          <p>判定は2D6（6面のサイコロを2つ振る）で行い、出た目の合計が達成値（基本は7）以上であれば成功となる。</p>
+          <div class="rule-toggle-highlight">
+            <div class="rule-toggle-highlight-row"><span>アイデンティティ項目</span><strong>達成値6</strong></div>
+            <div class="rule-toggle-highlight-row"><span>天命判定（成功）</span><strong>達成値4</strong></div>
+          </div>
+        </div>
+      </details>
+      </div>
+    </details>
+
+    <details class="section-toggle" id="tenmeiJudgeSection">
+      <summary>天命判定</summary>
+      <div class="section-toggle-body">
+      <div class="grid cols-2" id="tenmeiGrid">
+        <label class="field tenmei-init-field"><span>初期値</span><input id="f_tenmei_init" type="number" value="7" readonly></label>
+        <label class="field"><span id="tenmeiNowLabel">現在値</span><input id="f_tenmei_now" type="number" min="2" max="7" value="7" readonly></label>
+      </div>
+      <div class="track" id="tenmeiTrack" style="margin-top:8px;"></div>
+      <div class="hint" id="tenmeiHint">*ハッピーエンドを迎えるたびに枠を左から埋める</div>
+      <details class="rule-toggle">
+        <summary>天命判定とは</summary>
+        <div class="rule-toggle-body">
+          <p>アプローチ判定の前に、天命を使うことを宣言して行う判定のこと。判定後の宣言は認められない。</p>
+          <p>2D6を振り、達成値以上なら成功。成功すると、続くアプローチ判定の達成値が4になる。</p>
+          <p>失敗した場合はHPを1失い、アプローチ判定は通常の達成値（アイデンティティは6、それ以外は7）で行う。</p>
+          <p>使用回数に制限はないが、失敗によるHP減少がリスクとなる。達成値はハッピーエンドを迎えるたびに1下がり（左詰めで記録する）、初期値7から最低2まで下がる。</p>
+        </div>
+      </details>
+      </div>
+    </details>
+
+    <details class="section-toggle" id="tenmeiLossSection">
+      <summary>天命の喪失</summary>
+      <div class="section-toggle-body">
+      <div class="track" id="badTrack"></div>
+      <div class="hint" id="badTrackHint">*バッドエンドを迎えるたびに枠を左から埋める</div>
+      <details class="rule-toggle">
+        <summary>天命の喪失とは</summary>
+        <div class="rule-toggle-body">
+          <p>裁定フェーズにて乗命先がバッドエンドとなった回数が、3回（左詰めで記録）に達した時点で天命を失うこと。</p>
+          <p>天命には生きる力そのものが宿っている。</p>
+          <p>それを失った状態では、長くは生きられない。</p>
+        </div>
+      </details>
+      <label class="field" id="epilogueField" style="display:none;margin-top:10px;"><span>エピローグ</span><textarea id="f_epilogue"></textarea></label>
+      </div>
+    </details>
+
+    <details class="section-toggle" id="tenmeiCompleteSection">
+      <summary>天命の完遂</summary>
+      <div class="section-toggle-body">
+      <div class="stars" id="kanjuStars"></div>
+      <div class="hint" id="kanjuHint">*ハッピーエンドを迎えるたびに枠を左から埋める</div>
+      <details class="rule-toggle">
+        <summary>天命の完遂とは</summary>
+        <div class="rule-toggle-body">
+          <p>裁定フェーズにて乗命先がハッピーエンドとなった回数が、5回（左詰めで記録）に達すること。</p>
+          <p>天命完遂後は、以下の3つから選択できる。</p>
+          <ul>
+            <li>楽園帰郷：PCを引退させ、魂を楽園へ帰す</li>
+            <li>眷族化：眷族PCとして、対応シナリオに登場できる存在になる</li>
+            <li>継続：同じPCで参加を続ける（天命判定の達成値は2のまま据え置き）</li>
+          </ul>
+        </div>
+      </details>
+      <div class="radio-line" id="afterChoice" style="display:none;">
+        <label><input type="radio" name="after" value="楽園帰郷" disabled> 楽園帰郷</label>
+        <label><input type="radio" name="after" value="眷族化" disabled> 眷族化</label>
+        <label><input type="radio" name="after" value="継続" disabled> 継続</label>
+      </div>
+      <label class="field" id="rakuenEpilogueField" style="display:none;margin-top:10px;"><span>エピローグ</span><textarea id="f_epilogue_rakuen"></textarea></label>
+      </div>
+    </details>
+
+    <details class="section-toggle" id="passedScenarioSection">
+      <summary>通過シナリオ</summary>
+      <div class="section-toggle-body">
+        <label class="field"><input id="f_scenario1" type="text"></label>
+        <label class="field"><input id="f_scenario2" type="text"></label>
+        <label class="field"><input id="f_scenario3" type="text"></label>
+        <label class="field"><input id="f_scenario4" type="text"></label>
+        <label class="field"><input id="f_scenario5" type="text"></label>
+        <label class="field"><input id="f_scenario6" type="text"></label>
+        <label class="field"><input id="f_scenario7" type="text"></label>
+      </div>
+    </details>
+    </fieldset>
+  </div>
+</div>
+
+<div class="print-footer-band"></div>
+
+<div class="toolbar">
+
+  <button class="btn" id="btnSaveFile">ファイル出力</button>
+  <button class="btn" id="btnLoadFile">ファイル読込み</button>
+  <input type="file" id="f_load_file" accept=".json,application/json" style="display:none;">
+  <button class="btn" id="btnClear">クリア</button>
+  <button class="btn" id="btnSaveFileView" style="display:none;">閲覧ファイル出力</button>
+  <button class="btn" id="btnEdit" style="display:none;">編集に戻る</button>
+  <button class="btn" id="btnPreview">閲覧モード</button>
+</div>
+
+<div class="share-out" id="fileStatusOut">
+  <div class="box-link" id="fileStatusText"></div>
+</div>
+
+<div class="modal-overlay" id="clearModal">
+  <div class="modal-box">
+    <p class="modal-title">白紙の状態に戻しますか？</p>
+    <p class="modal-body">この操作を行うと、現在の入力内容はすべて消去されます。<br>ファイルを保存していない場合、内容は復元できません。</p>
+    <div class="modal-actions">
+      <button class="btn" id="btnClearCancel">キャンセル</button>
+      <button class="btn primary" id="btnClearConfirm">クリア</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="cropModal">
+  <div class="modal-box crop-modal-box">
+    <p class="modal-title">立ち絵の調整</p>
+    <div class="crop-stage" id="cropStage">
+      <img id="cropImg" draggable="false" alt="立ち絵プレビュー">
+    </div>
+    <div class="crop-zoom-row">
+      <span class="crop-zoom-label">拡大</span>
+      <input type="range" id="cropZoom" min="100" max="300" value="100">
+    </div>
+    <p class="hint" style="text-align:center;margin:0 0 14px;">ドラッグして位置を調整可能</p>
+    <div class="modal-actions">
+      <button class="btn" id="btnCropCancel">キャンセル</button>
+      <button class="btn primary" id="btnCropApply">決定</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <ul class="footer-list" style="list-style:none;padding:0;margin:0;text-align:left;max-width:600px;margin:0 auto;">
+    <li><strong>ファイル出力</strong><br><span>入力内容をJSONファイルとして出力します。端末へ保存してください。</span></li>
+    <li><strong>ファイル読込み</strong><br><span>選択されたJSONファイルからシートを復元します。</span></li>
+    <li><strong>クリア</strong><br><span>入力内容をすべて消去し、空白のシートに戻します。</span></li>
+    <li><strong>閲覧モード</strong><br><span>共有用（編集不可）の確認画面になります。閲覧ファイル出力はこちらから行えます。</span></li>
+  </ul>
+  <p style="margin-top:16px;text-align:left;">
+    ※データはサーバーを介しません。
+  </p>
+</footer>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+
+  // ---- アプローチ達成値の自動計算 ----
+  const approachEls = { kodo: $('val_kodo'), dousatsu: $('val_dousatsu'), kanjou: $('val_kanjou') };
+  let identity = 'none';
+  function renderIdentity(){
+    Object.keys(approachEls).forEach(k=>{
+      const isId = (k === identity);
+      approachEls[k].textContent = isId ? 6 : 7;
+      approachEls[k].classList.toggle('is-identity', isId);
+    });
+    document.querySelectorAll('#identityPicker button').forEach(b=>{
+      b.classList.toggle('active', b.dataset.id === identity);
+    });
+  }
+  $('identityPicker').addEventListener('click', e=>{
+    const btn = e.target.closest('button');
+    if(!btn || btn.disabled) return;
+    identity = btn.dataset.id;
+    renderIdentity();
+  });
+  renderIdentity();
+
+  // ---- 星／トラック生成 ----
+  function buildStars(container, count, className){
+    container.innerHTML = '';
+    for(let i=0;i<count;i++){
+      const s = document.createElement('div');
+      s.className = className;
+      s.dataset.index = i;
+      container.appendChild(s);
+    }
+  }
+  function wireToggleTrack(container, stateGetter, stateSetter){
+    container.addEventListener('click', e=>{
+      if(container.closest('fieldset').disabled) return;
+      const el = e.target.closest('[data-index]');
+      if(!el || el.parentElement !== container) return;
+      const idx = Number(el.dataset.index);
+      const cur = stateGetter();
+      stateSetter(cur === idx+1 ? idx : idx+1);
+      renderTrack(container, stateGetter());
+    });
+  }
+  function renderTrack(container, filledCount){
+    [...container.children].forEach((el,i)=>{
+      el.classList.toggle('filled', i < filledCount);
+    });
+  }
+  function updateAfterChoice(){
+    const complete = (kanju >= 5);
+    const radios = document.querySelectorAll('#afterChoice input[value]');
+    radios.forEach(r=>{ r.disabled = !complete; });
+    $('afterChoice').style.display = complete ? 'flex' : 'none';
+    if(!complete){
+      radios.forEach(r=>{ r.checked = false; });
+    }else{
+      const anyChecked = [...radios].some(r=>r.checked);
+      if(!anyChecked){
+        const first = document.querySelector('#afterChoice input[value="楽園帰郷"]');
+        if(first) first.checked = true;
+      }
+    }
+    updateRakuenEpilogueVisibility();
+  }
+  function updateRakuenEpilogueVisibility(){
+    const checked = document.querySelector('input[name="after"]:checked');
+    const show = checked && (checked.value==='楽園帰郷' || checked.value==='眷族化');
+    $('rakuenEpilogueField').style.display = show ? 'flex' : 'none';
+  }
+  document.querySelectorAll('#afterChoice input[value]').forEach(r=>{
+    r.addEventListener('change', updateRakuenEpilogueVisibility);
+  });
+
+  let hpBonus = 0, kanju = 0, bad = 0, tenmeiTrack = 0;
+  buildStars($('hpStars'), 5, 'star');
+  buildStars($('kanjuStars'), 5, 'star');
+  buildStars($('badTrack'), 3, 'box bad');
+  buildStars($('tenmeiTrack'), 5, 'box'); // 7→6→5→4→3→2 の5段階
+
+  wireToggleTrack($('hpStars'), ()=>hpBonus, v=>{
+    hpBonus = v;
+    const init = Number($('f_hp_init').value) || 0;
+    $('f_hp_now').value = init + hpBonus;
+  });
+  wireToggleTrack($('kanjuStars'), ()=>kanju, v=>{kanju=v; updateAfterChoice();});
+  wireToggleTrack($('badTrack'), ()=>bad, v=>{bad=v; updateEpilogueVisibility();});
+  function updateEpilogueVisibility(){
+    $('epilogueField').style.display = (bad>=3) ? 'flex' : 'none';
+  }
+  wireToggleTrack($('tenmeiTrack'), ()=>tenmeiTrack, v=>{tenmeiTrack=v; syncTenmeiNowFromTrack();});
+
+  function syncTenmeiNowFromTrack(){
+    $('f_tenmei_now').value = 7 - tenmeiTrack;
+  }
+
+  // ---- テキストエリア自動拡張（内容が全部見えるよう高さを自動調整する） ----
+  function autoGrow(el){
+    el.style.height = 'auto';
+    el.style.height = (el.scrollHeight + 2) + 'px';
+  }
+  ['f_tenmei','f_opt2','f_epilogue','f_epilogue_rakuen'].forEach(id=>{
+    const el = $(id);
+    el.addEventListener('input', ()=>autoGrow(el));
+  });
+
+  // ---- 立ち絵アップロード（拡大・位置調整つき） ----
+  let portraitImages = ['', '', '']; // 最大3枚
+  let activeSlot = 0;   // 編集モードで今どのスロットを触っているか
+  let viewSlot = 0;     // 閲覧モードで今表示中のスロット
+  let cropRawImg = null; // 現在調整中の元画像（このセッション内でのみ保持。保存・復元はしない）
+  let cropScale = 1, cropBaseScale = 1, cropOffsetX = 0, cropOffsetY = 0;
+  const CROP_OUT_W = 300, CROP_OUT_H = 400; // 立ち絵フレームと同じ3:4比率での出力サイズ
+
+  function filledSlots(){
+    const list = [];
+    portraitImages.forEach((v,i)=>{ if(v) list.push(i); });
+    return list;
+  }
+
+  function updatePortraitDots(){
+    const editable = !$('formRoot').disabled;
+    const filled = filledSlots();
+    const showDots = editable ? true : (filled.length > 1);
+    $('portraitDots').classList.toggle('show', showDots);
+    const current = editable ? activeSlot : viewSlot;
+    document.querySelectorAll('.portrait-dot').forEach(dot=>{
+      const i = Number(dot.dataset.index);
+      dot.classList.toggle('filled', !!portraitImages[i]);
+      dot.classList.toggle('active', i === current);
+    });
+  }
+
+  // ---- ドットのクリック（編集：そのスロットを選択／閲覧：そのスロットへ移動） ----
+  document.querySelectorAll('.portrait-dot').forEach(dot=>{
+    dot.addEventListener('click', ()=>{
+      const i = Number(dot.dataset.index);
+      if(!$('formRoot').disabled){
+        activeSlot = i;
+        cropRawImg = null;
+        showPortraitAt(activeSlot);
+      }else{
+        if(portraitImages[i]){
+          viewSlot = i;
+          showPortraitAt(viewSlot);
+        }
+      }
+    });
+  });
+
+  // ---- タップで画像を選ぶ／スワイプで閲覧モードの画像を切り替える ----
+  (function(){
+    const frame = $('portraitFrame');
+    let startX = 0, startY = 0, moved = false;
+    frame.addEventListener('pointerdown', (e)=>{
+      startX = e.clientX; startY = e.clientY; moved = false;
+    });
+    frame.addEventListener('pointermove', (e)=>{
+      if(Math.abs(e.clientX - startX) > 10 || Math.abs(e.clientY - startY) > 10) moved = true;
+    });
+    frame.addEventListener('pointerup', (e)=>{
+      const dx = e.clientX - startX;
+      const disabled = $('formRoot').disabled;
+      if(disabled){
+        // 閲覧モード：横スワイプで画像を切り替える
+        const filled = filledSlots();
+        if(filled.length <= 1) return;
+        if(Math.abs(dx) < 30) return;
+        const pos = filled.indexOf(viewSlot);
+        let next;
+        if(dx < 0){ next = filled[(pos + 1) % filled.length]; }
+        else{ next = filled[(pos - 1 + filled.length) % filled.length]; }
+        viewSlot = next;
+        showPortraitAt(viewSlot);
+      }else{
+        // 編集モード：タップした時だけファイル選択を開く
+        if(!moved){
+          $('f_portrait_file').click();
+        }
+      }
+    });
+  })();
+
+  $('f_portrait_file').addEventListener('change', (e)=>{
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev)=>{
+      const img = new Image();
+      img.onload = ()=>{
+        cropRawImg = img;
+        openCropModal(true);
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+  });
+
+  // ---- 「調整」ボタン：既存の立ち絵を再調整する ----
+  $('btnPortraitAdjust').addEventListener('click', ()=>{
+    if($('formRoot').disabled) return;
+    const current = portraitImages[activeSlot];
+    if(!cropRawImg && current){
+      // セッション内に元画像がない場合（ファイル読込み直後など）は現在の立ち絵を元に調整する
+      const img = new Image();
+      img.onload = ()=>{
+        cropRawImg = img;
+        openCropModal(true);
+      };
+      img.src = current;
+    }else if(cropRawImg){
+      openCropModal(false);
+    }
+  });
+
+  // ---- 「クリア」ボタン：立ち絵を消去する ----
+  $('btnPortraitClear').addEventListener('click', ()=>{
+    if($('formRoot').disabled) return;
+    portraitImages[activeSlot] = '';
+    cropRawImg = null;
+    showPortraitAt(activeSlot);
+  });
+
+  function openCropModal(resetCrop){
+    const stage = $('cropStage');
+    $('cropImg').src = cropRawImg.src;
+    if(resetCrop){
+      const stageW = stage.clientWidth || 260, stageH = stage.clientHeight || (stageW*4/3);
+      cropBaseScale = Math.max(stageW / cropRawImg.width, stageH / cropRawImg.height) * 1.15;
+      cropScale = 1; cropOffsetX = 0; cropOffsetY = 0;
+      $('cropZoom').value = 100;
+    }
+    $('cropModal').classList.add('show');
+    renderCrop();
+  }
+
+  function clampCropOffsets(){
+    const stage = $('cropStage');
+    const stageW = stage.clientWidth, stageH = stage.clientHeight;
+    const dispW = cropRawImg.width * cropBaseScale * cropScale;
+    const dispH = cropRawImg.height * cropBaseScale * cropScale;
+    const maxX = Math.max(0, (dispW - stageW) / 2);
+    const maxY = Math.max(0, (dispH - stageH) / 2);
+    cropOffsetX = Math.max(-maxX, Math.min(maxX, cropOffsetX));
+    cropOffsetY = Math.max(-maxY, Math.min(maxY, cropOffsetY));
+  }
+
+  function renderCrop(){
+    clampCropOffsets();
+    const stage = $('cropStage');
+    const stageW = stage.clientWidth, stageH = stage.clientHeight;
+    const dispW = cropRawImg.width * cropBaseScale * cropScale;
+    const dispH = cropRawImg.height * cropBaseScale * cropScale;
+    const cropImgEl = $('cropImg');
+    cropImgEl.style.width = dispW + 'px';
+    cropImgEl.style.height = dispH + 'px';
+    cropImgEl.style.left = ((stageW - dispW) / 2 + cropOffsetX) + 'px';
+    cropImgEl.style.top = ((stageH - dispH) / 2 + cropOffsetY) + 'px';
+  }
+
+  $('cropZoom').addEventListener('input', ()=>{
+    cropScale = Number($('cropZoom').value) / 100;
+    renderCrop();
+  });
+
+  // ---- ドラッグで位置調整（マウス・タッチ共通） ----
+  (function(){
+    const stage = $('cropStage');
+    let dragging = false, startX = 0, startY = 0, startOffX = 0, startOffY = 0;
+    stage.addEventListener('pointerdown', (e)=>{
+      dragging = true;
+      startX = e.clientX; startY = e.clientY;
+      startOffX = cropOffsetX; startOffY = cropOffsetY;
+      stage.setPointerCapture(e.pointerId);
+    });
+    stage.addEventListener('pointermove', (e)=>{
+      if(!dragging) return;
+      cropOffsetX = startOffX + (e.clientX - startX);
+      cropOffsetY = startOffY + (e.clientY - startY);
+      renderCrop();
+    });
+    const endDrag = ()=>{ dragging = false; };
+    stage.addEventListener('pointerup', endDrag);
+    stage.addEventListener('pointercancel', endDrag);
+  })();
+
+  $('btnCropCancel').addEventListener('click', ()=>{
+    $('cropModal').classList.remove('show');
+  });
+
+  $('btnCropApply').addEventListener('click', ()=>{
+    const canvas = document.createElement('canvas');
+    canvas.width = CROP_OUT_W;
+    canvas.height = CROP_OUT_H;
+    const ctx = canvas.getContext('2d');
+    const stage = $('cropStage');
+    const renderScale = CROP_OUT_W / stage.clientWidth;
+    ctx.save();
+    ctx.translate(CROP_OUT_W/2, CROP_OUT_H/2);
+    ctx.scale(renderScale, renderScale);
+    ctx.translate(cropOffsetX, cropOffsetY);
+    ctx.scale(cropBaseScale * cropScale, cropBaseScale * cropScale);
+    ctx.drawImage(cropRawImg, -cropRawImg.width/2, -cropRawImg.height/2, cropRawImg.width, cropRawImg.height);
+    ctx.restore();
+    portraitImages[activeSlot] = canvas.toDataURL('image/jpeg', 0.75);
+    showPortraitAt(activeSlot);
+    $('cropModal').classList.remove('show');
+  });
+
+  // ---- 指定スロットの画像を枠に表示し、ドットの状態も更新する ----
+  function showPortraitAt(index){
+    const dataUrl = portraitImages[index];
+    if(!dataUrl){
+      $('portraitImg').style.display = 'none';
+      $('portraitPlaceholder').style.display = 'block';
+      $('portraitActions').style.display = 'none';
+    }else{
+      $('portraitImg').src = dataUrl;
+      $('portraitImg').style.display = 'block';
+      $('portraitPlaceholder').style.display = 'none';
+      $('portraitActions').style.display = $('formRoot').disabled ? 'none' : 'flex';
+    }
+    updatePortraitDots();
+  }
+
+
+
+  // ---- データ収集／復元 ----
+  function collect(){
+    return {
+      world:$('f_world').value, race:$('f_race').value,
+      name:$('f_name').value, kana:$('f_kana').value, age:$('f_age').value, job:$('f_job').value,
+      height:$('f_height').value, weight:$('f_weight').value, birthplace:$('f_birthplace').value, opt2:$('f_opt2').value,
+      scenario1:$('f_scenario1').value, scenario2:$('f_scenario2').value, scenario3:$('f_scenario3').value,
+      scenario4:$('f_scenario4').value, scenario5:$('f_scenario5').value, scenario6:$('f_scenario6').value,
+      scenario7:$('f_scenario7').value,
+      jingu1:$('f_jingu1').value, jingu2:$('f_jingu2').value, jingu3:$('f_jingu3').value,
+      hpInit:$('f_hp_init').value, hpNow:$('f_hp_now').value, hpBonus,
+      identity, tenmei:$('f_tenmei').value, epilogue:$('f_epilogue').value,
+      epilogueRakuen:$('f_epilogue_rakuen').value,
+      tenmeiTrack, kanju, bad,
+      after: (document.querySelector('input[name="after"]:checked')||{}).value || '',
+      portrait1: portraitImages[0], portrait2: portraitImages[1], portrait3: portraitImages[2]
+    };
+  }
+  function restore(d){
+    $('f_world').value = d.world||''; $('f_race').value = d.race||'';
+    $('f_name').value = d.name||''; $('f_kana').value = d.kana||''; $('f_age').value = d.age||''; $('f_job').value = d.job||'';
+    $('f_height').value = d.height||''; $('f_weight').value = d.weight||''; $('f_birthplace').value = d.birthplace||''; $('f_opt2').value = d.opt2||'';
+    $('f_scenario1').value = d.scenario1||''; $('f_scenario2').value = d.scenario2||''; $('f_scenario3').value = d.scenario3||'';
+    $('f_scenario4').value = d.scenario4||''; $('f_scenario5').value = d.scenario5||''; $('f_scenario6').value = d.scenario6||'';
+    $('f_scenario7').value = d.scenario7||'';
+    $('f_jingu1').value = d.jingu1||''; $('f_jingu2').value = d.jingu2||''; $('f_jingu3').value = d.jingu3||'';
+    $('f_hp_init').value = 10; $('f_hp_now').value = d.hpNow||'';
+    hpBonus = d.hpBonus||0; kanju = d.kanju||0; bad = d.bad||0; tenmeiTrack = d.tenmeiTrack||0;
+    identity = d.identity||'none';
+    $('f_tenmei').value = d.tenmei||''; $('f_epilogue').value = d.epilogue||'';
+    $('f_epilogue_rakuen').value = d.epilogueRakuen||'';
+    portraitImages = [d.portrait1||d.portrait||'', d.portrait2||'', d.portrait3||''];
+    cropRawImg = null;
+    activeSlot = filledSlots()[0] ?? 0;
+    viewSlot = activeSlot;
+    showPortraitAt(activeSlot);
+    renderIdentity();
+    renderTrack($('hpStars'), hpBonus);
+    renderTrack($('kanjuStars'), kanju);
+    renderTrack($('badTrack'), bad);
+    updateEpilogueVisibility();
+    renderTrack($('tenmeiTrack'), tenmeiTrack);
+    syncTenmeiNowFromTrack();
+    if(d.after){
+      const r = document.querySelector('input[name="after"][value="'+d.after+'"]');
+      if(r) r.checked = true;
+    }
+    updateAfterChoice();
+    if(d.after){
+      const r2 = document.querySelector('input[name="after"][value="'+d.after+'"]');
+      if(r2) r2.checked = true;
+    }
+    autoGrow($('f_tenmei'));
+    autoGrow($('f_opt2'));
+    autoGrow($('f_epilogue'));
+    autoGrow($('f_epilogue_rakuen'));
+  }
+
+  function encode(data){
+    return LZString.compressToEncodedURIComponent(JSON.stringify(data));
+  }
+  function decode(str){
+    // 新方式（圧縮あり）でまず試す
+    const decompressed = LZString.decompressFromEncodedURIComponent(str);
+    if(decompressed !== null && decompressed !== ''){
+      return JSON.parse(decompressed);
+    }
+    // 旧方式（圧縮なし・v37以前のリンク）へのフォールバック
+    return JSON.parse(decodeURIComponent(escape(atob(decodeURIComponent(str)))));
+  }
+
+  // ---- ファイル名として使えない文字を除去する ----
+  function sanitizeFilename(name){
+    return name.replace(/[\\/:*?"<>|]/g, '').trim();
+  }
+
+  // ---- シートをファイル保存（JSONダウンロード・編集可） ----
+  function saveToFile(locked){
+    const data = collect();
+    if(locked) data.locked = true;
+    const json = JSON.stringify(data, null, 2);
+    const blob = new Blob([json], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const rawName = sanitizeFilename($('f_name').value || '');
+    const base = rawName ? rawName : 'character_sheet';
+    const filename = base + (locked ? '_閲覧用' : '') + '.json';
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    $('fileStatusText').textContent = '「' + filename + '」として出力済み';
+    $('fileStatusOut').classList.add('show');
+  }
+  $('btnSaveFile').addEventListener('click', ()=>saveToFile(false));
+  $('btnSaveFileView').addEventListener('click', ()=>saveToFile(true));
+
+  // ---- ファイルを読み込み（JSON読込・復元） ----
+  $('btnLoadFile').addEventListener('click', ()=>{
+    $('f_load_file').click();
+  });
+  $('f_load_file').addEventListener('change', (e)=>{
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev)=>{
+      try{
+        const data = JSON.parse(ev.target.result);
+        restore(data);
+        if(data.locked){
+          isLocked = true;
+          setEditMode(false);
+        }else{
+          isLocked = false;
+          setEditMode(true);
+        }
+        $('fileStatusText').textContent = '「' + file.name + '」を読み込んだ';
+        $('fileStatusOut').classList.add('show');
+      }catch(err){
+        alert('ファイルの読み込みに失敗した。正しいJSONファイルか確認してほしい。');
+        console.error('シートの読込に失敗した', err);
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  });
+
+
+  $('btnClear').addEventListener('click', ()=>{
+    $('clearModal').classList.add('show');
+  });
+  $('btnClearCancel').addEventListener('click', ()=>{
+    $('clearModal').classList.remove('show');
+  });
+  $('btnClearConfirm').addEventListener('click', ()=>{
+    $('clearModal').classList.remove('show');
+    location.hash = '';
+    location.reload();
+  });
+
+  let isLocked = false;
+
+  $('btnEdit').addEventListener('click', ()=>{
+    if(isLocked) return;
+    setEditMode(true);
+    history.replaceState(null, '', location.pathname);
+  });
+
+  $('btnPreview').addEventListener('click', ()=>{
+    setEditMode(false);
+  });
+
+  function setEditMode(editable){
+    if(isLocked) editable = false;
+    $('formRoot').disabled = !editable;
+    document.body.classList.toggle('mode-view', !editable);
+    // 閲覧モードでは、CSSでの見せかけ表示に頼らず実際にトグルを開いて中身を確実に見せる
+    document.querySelectorAll('.section-toggle').forEach(el=>{ el.open = !editable; });
+    if(editable){
+      showPortraitAt(activeSlot);
+    }else{
+      viewSlot = filledSlots()[0] ?? 0;
+      showPortraitAt(viewSlot);
+    }
+    if(isLocked){
+      // 閲覧専用ファイルを読み込んだ場合：クリアとファイル読込みのみ表示する
+      $('btnSaveFile').style.display = 'none';
+      $('btnLoadFile').style.display = 'inline-block';
+      $('btnPreview').style.display = 'none';
+      $('btnClear').style.display = 'inline-block';
+      $('btnEdit').style.display = 'none';
+      $('btnSaveFileView').style.display = 'none';
+    }else{
+      $('btnSaveFile').style.display = editable ? 'inline-block' : 'none';
+      $('btnLoadFile').style.display = editable ? 'inline-block' : 'none';
+      $('btnPreview').style.display = editable ? 'inline-block' : 'none';
+      $('btnClear').style.display = editable ? 'inline-block' : 'none';
+      $('btnEdit').style.display = !editable ? 'inline-block' : 'none';
+      $('btnSaveFileView').style.display = !editable ? 'inline-block' : 'none';
+    }
+    autoGrow($('f_tenmei'));
+    autoGrow($('f_opt2'));
+    autoGrow($('f_epilogue'));
+    autoGrow($('f_epilogue_rakuen'));
+    updateAfterChoice();
+    updateEmptyFieldStates();
+  }
+
+  // ---- 空欄の欄には枠・下線を表示しないための判定（巡具／通過シナリオ）、氏名の後ろのカナ表示更新 ----
+  function updateEmptyFieldStates(){
+    const kana = $('f_kana').value.trim();
+    $('nameKanaSuffix').textContent = kana ? '（' + kana + '）' : '';
+    const name = $('f_name').value.trim();
+    const nameDisplayEl = $('nameDisplay');
+    nameDisplayEl.textContent = '';
+    if(name){
+      nameDisplayEl.appendChild(document.createTextNode(name));
+      if(kana){
+        nameDisplayEl.appendChild(document.createElement('br'));
+        nameDisplayEl.appendChild(document.createTextNode('（' + kana + '）'));
+      }
+    }
+    ['f_jingu1','f_jingu2','f_jingu3',
+     'f_scenario1','f_scenario2','f_scenario3','f_scenario4','f_scenario5','f_scenario6','f_scenario7',
+     'f_height','f_weight','f_birthplace','f_opt2'
+    ].forEach(id=>{
+      $(id).classList.toggle('is-empty', !$(id).value.trim());
+    });
+    const jinguAllEmpty = ['f_jingu1','f_jingu2','f_jingu3'].every(id=>!$(id).value.trim());
+    $('jinguSection').classList.toggle('all-empty', jinguAllEmpty);
+    const scenarioAllEmpty = ['f_scenario1','f_scenario2','f_scenario3','f_scenario4','f_scenario5','f_scenario6','f_scenario7'].every(id=>!$(id).value.trim());
+    $('passedScenarioSection').classList.toggle('all-empty', scenarioAllEmpty);
+  }
+
+  // ---- 起動時：URLにcid（編集可能な閲覧）またはvid（閲覧専用ロック）があれば復元 ----
+  (function init(){
+    const mCid = location.hash.match(/cid=([^&]+)/);
+    const mVid = location.hash.match(/vid=([^&]+)/);
+    if(mVid){
+      try{
+        const data = decode(mVid[1]);
+        restore(data);
+        isLocked = true;
+        setEditMode(false);
+      }catch(e){
+        console.error('シートの読込に失敗した', e);
+      }
+    }else if(mCid){
+      try{
+        const data = decode(mCid[1]);
+        restore(data);
+        setEditMode(false);
+      }catch(e){
+        console.error('シートの読込に失敗した', e);
+      }
+    }
+  })();
+})();
+</script>
+</body>
+</html>
